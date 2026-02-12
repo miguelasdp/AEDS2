@@ -1,0 +1,77 @@
+package lab_aedsII;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int opcao;
+
+        do {
+            System.out.println("\n0- Sair | 1- Somar Pares | 2- Somar Vetor | 3- Contar Repetições");
+            System.out.print("Escolha: ");
+            opcao = scanner.nextInt();
+
+            if (opcao == 1) {
+                System.out.print("Limite: ");
+                int n = scanner.nextInt();
+                System.out.println("Soma dos pares: " + somarPares(n));
+            } 
+            else if (opcao == 2) {
+                System.out.print("Tamanho do vetor: ");
+                int tam = scanner.nextInt();
+                double[] v = new double[tam];
+                for (int i = 0; i < tam; i++) {
+                    System.out.print("Valor" + i + ": ");
+                    v[i] = scanner.nextDouble();
+                }
+                System.out.println("Soma total: " + somarVetor(v, 0));
+            }
+            else if (opcao == 3) {
+                System.out.print("Tamanho do vetor: ");
+                int tam = scanner.nextInt();
+                double[] v = new double[tam];
+                for (int i = 0; i < tam; i++) {
+                    System.out.print("Valor " + i + ": ");
+                    v[i] = scanner.nextDouble();
+                }
+                System.out.print("Número para contar: ");
+                double busca = scanner.nextDouble();
+                System.out.println("Repetições encontradas: " + contarRepeticoes(v, 0, busca));
+            }
+        } while (opcao != 0);
+        
+        scanner.close();
+    }
+
+    public static int somarPares(int n) {
+        if (n <= 0) {
+        	return 0;
+        }
+        if (n % 2 == 0) {
+        	return n + somarPares(n - 1);
+        }
+        return somarPares(n - 1);
+    }
+
+    public static double somarVetor(double[] v, int i) {
+        if (i == v.length) {
+        	return 0;
+        }
+        return v[i] + somarVetor(v, i + 1);
+    }
+
+    public static int contarRepeticoes(double[] v, int i, double busca) {
+        if (i == v.length) {
+        	return 0;
+        }
+        int cont;
+
+        if (v[i] == busca) {
+            cont = 1;
+        } else {
+            cont = 0;
+        }
+        return cont + contarRepeticoes(v, i + 1, busca);
+    }
+}
